@@ -1,4 +1,6 @@
-require "goliath"
+require "goliath/api"
+
+EM.kqueue = true
 
 module Pandemonium
   class API < Goliath::API
@@ -8,6 +10,7 @@ module Pandemonium
     def response(env)
       case env["PATH_INFO"]
       when "/"
+        puts env.repos
         [200, {}, "Pandemonium"]
       when "/attach"
         project_name = env.params["project_name"]
@@ -33,12 +36,14 @@ module Pandemonium
         streaming_response(202, {"X-Stream" => "Pandemonium"})
       when "/deploy"
         project_name = env.params["project_name"]
+        project = env.repos[project_name]
+
         boss = env.jobs[project_name]
 
         if boss.running?
           [200, {}, "Already deploying"]
         else
-          boss.run_command("./test.sh")
+          boss.run_command project["repo"], project["deploy_script"]
           [201, {}, "Deploying"]
         end
       end
