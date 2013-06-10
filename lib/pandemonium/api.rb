@@ -1,6 +1,6 @@
 require "goliath"
 
-module Virgil
+module Pandemonium
   class API < Goliath::API
     use Goliath::Rack::Params
     use Goliath::Rack::Render, ["json"]
@@ -8,7 +8,7 @@ module Virgil
     def response(env)
       case env["PATH_INFO"]
       when "/"
-        [200, {}, "Vigil"]
+        [200, {}, "Pandemonium"]
       when "/attach"
         project_name = env.params["project_name"]
         boss         = env.jobs[project_name]
@@ -30,7 +30,7 @@ module Virgil
           end
         end
 
-        streaming_response(202, {'X-Stream' => 'Virgil'})
+        streaming_response(202, {"X-Stream" => "Pandemonium"})
       when "/deploy"
         project_name = env.params["project_name"]
         boss = env.jobs[project_name]
