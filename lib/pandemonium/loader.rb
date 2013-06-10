@@ -1,4 +1,4 @@
-require "pandemonium/repo"
+require "pandemonium/repos"
 
 module Pandemonium
   module Loader

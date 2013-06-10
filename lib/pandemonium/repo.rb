@@ -12,24 +12,4 @@ module Pandemonium
       File.write(Pandemonium::Loader::REPO_FILE, toml_file)
     end
   end
-
-  class Repos
-    def initialize
-      @repos = []
-    end
-
-    def [](name)
-      @repos.select { |item| item.name == name }.first
-    end
-
-    def <<(repo)
-      @repos << repo
-    end
-
-    def load(array)
-      Array(array).each do |name, repo|
-        @repos << Repo.new(name, repo["repository"], repo["deploy_script"])
-      end
-    end
-  end
 end
