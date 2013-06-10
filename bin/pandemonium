@@ -1,19 +1,12 @@
 #!/usr/bin/env ruby
 $: << "lib"
 
-require "goliath/runner"
-require "pandemonium/api"
+require "clap"
+require "pandemonium/cli"
 
-# There must be a prettier way to pass options to the runner
-argv = ARGV
-argv << "-c"
-argv << File.join(File.expand_path("..", __FILE__), "config/pandemonium.rb")
-
-runner = Goliath::Runner.new(argv, nil)
-api    = Pandemonium::API
-
-runner.api = api.new
-runner.app = Goliath::Rack::Builder.build(api, runner.api)
-runner.run
+Clap.run ARGV,
+  "run"  => Pandemonium::CLI.method(:run),
+  "list" => Pandemonium::CLI.method(:list),
+  "add"  => Pandemonium::CLI.method(:add)
 
 # vim: ft=ruby
