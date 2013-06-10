@@ -24,8 +24,9 @@ module Pandemonium
       @running = false
       @buffer = nil
 
-      @job.exit_status = get_status.exitstatus
-      @output << Pandemonium::Message.new(:exit_status, @job.exit_status)
+      @job.finish(get_status.exitstatus)
+
+      @output << Pandemonium::Message.new(:exit_status, get_status.exitstatus)
       @output << Pandemonium::Message.new(:action, :finish)
     end
 

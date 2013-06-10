@@ -43,7 +43,7 @@ module Pandemonium
         if boss.running?
           [200, {}, "Already deploying"]
         else
-          boss.run_command project["repo"], project["deploy_script"]
+          boss.run_command project
           [201, {}, "Deploying"]
         end
       end

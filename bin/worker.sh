@@ -1,7 +1,18 @@
 #!/usr/bin/env bash
 
-repo=$1
-deploy_script=$2
+name="$1"
+repo="$2"
+deploy_script="$3"
+branch=$4 || "master"
+destination_folder="/tmp/$name"
 
-git clone $repo
+
+if [ -d $destination_folder ]; then
+  cd $destination_folder
+  git pull
+else
+  git clone $repo $destination_folder
+fi
+
+cd $destination_folder
 $deploy_script

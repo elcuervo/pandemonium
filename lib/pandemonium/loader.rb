@@ -1,3 +1,5 @@
+require "pandemonium/repo"
+
 module Pandemonium
   module Loader
     REPO_FILE = File.expand_path("~/.pandemonium").freeze
@@ -9,7 +11,9 @@ module Pandemonium
     def load_repos
       puts "reloading repos"
       repos = TOML.load_file(REPO_FILE)
-      @config["repos"] = repos
+
+      @config["repos"] = Pandemonium::Repos.new
+      @config["repos"].load(repos)
     end
 
     alias file_modified load_repos
