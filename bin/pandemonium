@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+#
+$: << "lib"
 
 require "clap"
 require "pandemonium/cli"

@@ -1,6 +1,7 @@
 require "goliath/runner"
 require "toml"
 require "uri"
+require "pandemonium/boot"
 require "pandemonium/api"
 require "pandemonium/loader"
 

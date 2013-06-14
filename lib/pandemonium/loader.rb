@@ -12,8 +12,8 @@ module Pandemonium
       puts "reloading repos"
       repos = TOML.load_file(REPO_FILE)
 
-      @config["repos"] = Pandemonium::Repos.new
-      @config["repos"].load(repos)
+   #  @config["repos"] = Pandemonium::Repos.new
+   #  @config["repos"].load(repos)
     end
 
     alias file_modified load_repos

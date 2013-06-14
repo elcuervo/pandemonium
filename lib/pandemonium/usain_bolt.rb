@@ -2,10 +2,9 @@ require "pandemonium/message"
 
 module Pandemonium
   class UsainBolt < EM::Connection
-    def initialize(job)
+    def initialize(job, channel)
       @job = job
-      @output = job.output
-      @buffer = StringIO.new
+      @output = channel
     end
 
     def post_init
@@ -15,15 +14,11 @@ module Pandemonium
 
     def receive_data(data)
       @output << Pandemonium::Message.new(:data, data)
-      @buffer << data
-
       puts "Command output: #{data}"
     end
 
     def unbind
       @running = false
-      @buffer = nil
-
       @job.finish(get_status.exitstatus)
 
       @output << Pandemonium::Message.new(:exit_status, get_status.exitstatus)

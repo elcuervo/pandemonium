@@ -10,8 +10,8 @@ module Pandemonium
     def response(env)
       case env["PATH_INFO"]
       when "/"
-        puts env.repos
-        [200, {}, "Pandemonium"]
+        repos = Pandemonium::Models::Repo.all.to_a
+        [200, {}, repos.to_json]
       when "/attach"
         project_name = env.params["project_name"]
         boss         = env.jobs[project_name]
