@@ -10,9 +10,7 @@ describe Pandemonium::Services::Executioner do
   before do
     proxy.expect(:popen, true, [
       Pandemonium::Services::Executioner.build_command(job),
-      runner,
-      job,
-      channel
+      runner, job, channel
     ])
 
     Pandemonium::Services::Executioner.call(job, channel, runner, proxy)
